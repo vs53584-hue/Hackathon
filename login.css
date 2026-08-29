@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+
+/* Main container */
+
+.login-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0px;
+    background-image: url(https://www.lpu.in/lpu-assets/images/slider-admission.webp);
+}
+
+
+/* Login card */
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Logo */
+
+.logo {
+    text-align: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+
+.logo span {
+    color: #2563eb;
+}
+
+
+/* Heading */
+
+h1 {
+    text-align: center;
+
+    font-size: 28px;
+
+    color: #111827;
+
+    margin-bottom: 8px;
+}
+
+
+/* Subtitle */
+
+.subtitle {
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 30px;
+}
+
+
+/* Input */
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #374151;
+}
+
+.input-group input {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #2563eb;
+}
+
+
+/* Login options */
+
+.login-options {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    font-size: 13px;
+}
+
+.login-options a {
+    color: #2563eb;
+
+    text-decoration: none;
+}
+
+
+/* Login button */
+
+button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+
+/* Register */
+
+.register {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+.register a {
+    color: #2563eb;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}

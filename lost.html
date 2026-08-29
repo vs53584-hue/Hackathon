@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFind - Dashboard</title>
+    <link rel="stylesheet" href="lost.css">
+    <style>
+        .dashboard-sections { margin-top: 40px; display: flex; flex-direction: column; gap: 40px; }
+        .reports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 15px; }
+        
+        /* Lost items cards (Blue accent) */
+        .lost-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #2563eb; }
+        .lost-card .contact-btn { display: inline-block; margin-top: 10px; padding: 8px 14px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: bold; }
+
+        /* Found items cards (Green accent) */
+        .found-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid #16a34a; }
+        .found-card .contact-btn { display: inline-block; margin-top: 10px; padding: 8px 14px; background: #16a34a; color: white; text-decoration: none; border-radius: 6px; font-size: 13px; font-weight: bold; }
+
+        .empty-state { color: #9ca3af; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-left">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="logo"><span>Campus</span>Find</div>
+        </div>
+        <div class="profile-area">
+            <div class="profile-info">
+                <div class="profile-circle">S</div>
+                <div class="profile-text">
+                    <span class="welcome">Welcome</span>
+                    <span class="username">Shivam</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <h1>Hello, Shivam 👋</h1>
+        <p>Find what's lost. Return what's found.</p>
+
+        <!-- Quick Action Cards -->
+        <div class="action-container">
+            
+            <!-- Lost Something Card -> Links to lost_info.html -->
+            <div class="action-card">
+                <div class="icon">🔍</div>
+                <h2>Lost Something?</h2>
+                <p>Search for your lost item on campus.</p>
+                <a href="lost_info.html"><button>Find Item</button></a>
+            </div>
+
+            <!-- Report Lost Card -> Links to lost_.html -->
+            <div class="action-card">
+                <div class="icon">📢</div>
+                <h2>Lost an Item?</h2>
+                <p>Report your lost item to the campus.</p>
+                <a href="lost_info.html"><button>Report Lost</button></a>
+            </div>
+
+            <!-- Found Something Card -> Links to found_info.html -->
+            <div class="action-card">
+                <div class="icon">📦</div>
+                <h2>Found Something?</h2>
+                <p>Help return an item to its owner.</p>
+                <a href="found_info.html"><button style="background: #16a34a;">Report Found</button></a>
+            </div>
+
+        </div>
+
+        <!-- Feeds for Lost and Found items -->
+        <div class="dashboard-sections">
+            <!-- Lost Items Section -->
+            <section>
+                <h2>📢 Recently Reported Lost Items</h2>
+                <div id="lostList" class="reports-grid"></div>
+            </section>
+
+            <!-- Found Items Section -->
+            <section>
+                <h2>📦 Recently Found Items</h2>
+                <div id="foundList" class="reports-grid"></div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function loadDashboardData() {
+            // Load Lost Items
+            const lostList = document.getElementById('lostList');
+            const lostItems = JSON.parse(localStorage.getItem('campusFindItems')) || [];
+            
+            if (lostItems.length === 0) {
+                lostList.innerHTML = '<p class="empty-state">No lost items reported yet.</p>';
+            } else {
+                lostList.innerHTML = lostItems.map(item => `
+                    <div class="lost-card">
+                        <h3>🔍 ${item.name}</h3>
+                        <p><strong>Location:</strong> ${item.location}</p>
+                        <p><strong>Description:</strong> ${item.description || 'N/A'}</p>
+                        <p><strong>Date:</strong> ${item.date}</p>
+                        <a href="tel:${item.contact}" class="contact-btn">📞 Contact Owner: ${item.contact}</a>
+                    </div>
+                `).join('');
+            }
+
+            // Load Found Items
+            const foundList = document.getElementById('foundList');
+            const foundItems = JSON.parse(localStorage.getItem('campusFoundItems')) || [];
+
+            if (foundItems.length === 0) {
+                foundList.innerHTML = '<p class="empty-state">No found items reported yet.</p>';
+            } else {
+                foundList.innerHTML = foundItems.map(item => `
+                    <div class="found-card">
+                        <h3>📦 ${item.name}</h3>
+                        <p><strong>Location:</strong> ${item.location}</p>
+                        <p><strong>Description:</strong> ${item.description || 'N/A'}</p>
+                        <p><strong>Date:</strong> ${item.date}</p>
+                        <a href="tel:${item.contact}" class="contact-btn">📞 Contact Finder: ${item.contact}</a>
+                    </div>
+                `).join('');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDashboardData);
+    </script>
+</body>
+</html>
