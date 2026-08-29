@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFind - Report Found Item</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f7fb; color: #111827; padding: 20px; }
+        
+        .top-nav { max-width: 500px; margin: 0 auto 20px auto; }
+        .back-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 40px; 
+            height: 40px; 
+            background: white; 
+            border: 1px solid #d1d5db; 
+            border-radius: 50%; 
+            color: #111827; 
+            text-decoration: none; 
+            font-size: 20px; 
+            font-weight: bold; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .back-btn:hover { background: #e5e7eb; }
+
+        .form-card { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+        .form-card h1 { font-size: 24px; margin-bottom: 8px; color: #111827; }
+        .form-card p { font-size: 14px; color: #6b7280; margin-bottom: 25px; }
+
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: bold; color: #374151; }
+        .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 9px; font-size: 15px; outline: none; }
+        .input-group input:focus, .input-group textarea:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1); }
+
+        .submit-btn { width: 100%; padding: 14px; background: #16a34a; color: white; border: none; border-radius: 9px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .submit-btn:hover { background: #15803d; }
+    </style>
+</head>
+<body>
+
+    <!-- Back Arrow Header -->
+    <div class="top-nav">
+        <a href="lost.html" class="back-btn" title="Go Back">&#8592;</a>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-card">
+        <h1>Report Found Item</h1>
+        <p>Help return a misplaced item to its rightful owner.</p>
+
+        <form id="foundItemForm">
+            <div class="input-group">
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" placeholder="e.g. AirPods Case, College ID Card" required>
+            </div>
+
+            <div class="input-group">
+                <label for="location">Found Location</label>
+                <input type="text" id="location" placeholder="e.g. Block B Canteen Table #4" required>
+            </div>
+
+            <div class="input-group">
+                <label for="description">Description / Identifiers</label>
+                <textarea id="description" rows="3" placeholder="Describe condition, color, or where it's stored for pickup"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="finderContact">Finder Contact Info</label>
+                <input type="text" id="finderContact" placeholder="Phone number or WhatsApp" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Found Item</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('foundItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect found item data
+            const newFoundItem = {
+                id: Date.now(),
+                name: document.getElementById('itemName').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                contact: document.getElementById('finderContact').value,
+                date: new Date().toLocaleDateString()
+            };
+
+            // Store in a separate localStorage array for found items
+            const existingFoundItems = JSON.parse(localStorage.getItem('campusFoundItems')) || [];
+            existingFoundItems.unshift(newFoundItem);
+            localStorage.setItem('campusFoundItems', JSON.stringify(existingFoundItems));
+
+            // Return back to dashboard
+            window.location.href = 'lost.html';
+        });
+    </script>
+</body>
+</html>

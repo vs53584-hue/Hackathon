@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFind - Report Lost Item</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f7fb; color: #111827; padding: 20px; }
+        .top-nav { max-width: 500px; margin: 0 auto 20px auto; }
+        .back-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: white; border: 1px solid #d1d5db; border-radius: 50%; color: #111827; text-decoration: none; font-size: 20px; font-weight: bold; }
+        .form-card { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+        .form-card h1 { font-size: 24px; margin-bottom: 8px; }
+        .form-card p { font-size: 14px; color: #6b7280; margin-bottom: 25px; }
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: bold; }
+        .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 9px; font-size: 15px; outline: none; }
+        .submit-btn { width: 100%; padding: 14px; background: #2563eb; color: white; border: none; border-radius: 9px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .submit-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="lost.html" class="back-btn">&#8592;</a>
+    </div>
+
+    <div class="form-card">
+        <h1>Report Lost Item</h1>
+        <p>Fill in the details below to publish your lost item.</p>
+
+        <form id="lostItemForm">
+            <div class="input-group">
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" placeholder="e.g. Blue Water Bottle" required>
+            </div>
+
+            <div class="input-group">
+                <label for="location">Last Seen Location</label>
+                <input type="text" id="location" placeholder="e.g. Central Library" required>
+            </div>
+
+            <div class="input-group">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3" placeholder="Key identifiers (color, brand, marks)"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="contactInfo">Owner Contact Info</label>
+                <input type="text" id="contactInfo" placeholder="Phone number or Email" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Post Lost Item</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('lostItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 1. Collect form data
+            const newItem = {
+                id: Date.now(),
+                name: document.getElementById('itemName').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                contact: document.getElementById('contactInfo').value,
+                date: new Date().toLocaleDateString()
+            };
+
+            // 2. Fetch existing items from LocalStorage
+            const existingItems = JSON.parse(localStorage.getItem('campusFindItems')) || [];
+
+            // 3. Add new item to the front of the list
+            existingItems.unshift(newItem);
+
+            // 4. Save updated array back to LocalStorage
+            localStorage.setItem('campusFindItems', JSON.stringify(existingItems));
+
+            // 5. Redirect user back to lost.html
+            window.location.href = 'lost.html';
+        });
+    </script>
+</body>
+</html>
